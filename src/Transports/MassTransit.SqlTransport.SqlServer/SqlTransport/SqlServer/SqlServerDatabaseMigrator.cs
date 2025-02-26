@@ -2013,6 +2013,9 @@ END
                 }
             }
 
+            if (string.IsNullOrWhiteSpace(currentUser))
+                throw new ArgumentException("The SQL transport migrator requires a valid Username, but Username was not specified", nameof(options));
+
             result = await connection.Connection.ExecuteScalarAsync<int?>(string.Format(RoleExistsSql, currentUser)).ConfigureAwait(false);
             if (!result.HasValue)
             {
